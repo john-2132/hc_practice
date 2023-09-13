@@ -1,0 +1,154 @@
+/* スマートフォン用の設定 */
+
+.container {
+    position: relative;
+    overflow: hidden;
+}
+
+.content {
+    width: 92%;
+    padding: 0 4%;
+    text-align: center;
+}
+
+h1, h2, h3, li, p {
+    transform: scale(0.9, 1);
+}
+
+.selfIntroduction, .profile {
+    letter-spacing: 0.1em;
+}
+
+.header {
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.header h1 {
+    font-size: 20px;
+    color: #FFFEF0;
+    background-color: #394052;
+    padding: 8px 15px;
+}
+
+.navigation {
+    width: 100%;
+}
+
+.navigation ul {
+    float: right;
+    font-size: 0.9em;
+    list-style-type: none;
+}
+
+.navigation li {
+    float: left;
+    margin-left: 20px;
+}
+
+.mainVisual {
+    display: flex;
+    justify-content: center;
+}
+
+.mainVisual img {
+    display: block;
+    height: 600px;
+    margin-bottom: 50px;
+}
+
+h2 {
+    display: inline-block;
+    font-size: 30px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000;
+}
+
+.selfIntroduction h3 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.selfIntroduction p {
+    display: inline-block;
+    text-align: left;
+}
+
+.selfIntroduction img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    max-width: 100%;
+    margin-top: 15px;
+    margin-bottom: 80px;
+}
+
+.profile h2 {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.profile h3 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.profile p {
+    margin-bottom: 10px;
+}
+
+.profile img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.footer {
+    margin-top: 120px;
+    font-size: 0.8em;
+    margin-bottom: 15px;
+}
+
+/* iPad画面サイズ以上用の設定 */
+@media screen and (min-width: 600px) {
+
+    .content {
+        max-width: 980px;
+        margin: 0 auto;
+    }
+
+    .header {
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .mainVisual img {
+        max-width: none;
+        margin: 0 calc(50% - 50vw);
+        width: 100vw;
+        margin-bottom: 50px;
+    }
+
+    .suzuki {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .suzuki h3 , .suzuki p {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile_content {
+        max-width: 80%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 0 auto;
+        gap: 0 20px;
+    }
+
+}
