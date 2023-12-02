@@ -21,7 +21,7 @@ year = Date.parse("#{Date.today}").year
 month = input_month["m"] ? input_month["m"].to_i : Date.parse("#{Date.today}").month
 
 #　月が有効値でない場合は例外を出す
-if month > 12
+unless month in 1..12
     raise "#{month} is neither a month number (1..12) nor a name"
 end
 
