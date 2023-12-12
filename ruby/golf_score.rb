@@ -12,68 +12,35 @@ class GolfScoreCounter
     @player_score = player_score.to_i
   end
 
-  # 規定打数によって評価方法を振り分ける
-  def judge_hole
-    case @hole_par
-    when Regulation::LONG
-      long_hole_counter
-    when Regulation::MIDDLE
-      middle_hole_counter
-    when Regulation::SHORT
-      short_hole_counter
-    else
-      '不正な規定打数'
+  def judge_score
+    if @hole_par.between?(3, 5) == false || @player_score < 1
+      '不正な入力です。'
     end
-  end
-
-  # ロングホールのスコア評価
-  def long_hole_counter
     case @player_score - @hole_par
     when -4
       'コンドル'
     when -3
-      'アルバトロス'
+      case @hole_par
+      when Regulation::LONG
+        'アルバトロス'
+      when Regulation::MIDDLE
+        'ホールインワン'
+      end
     when -2
-      'イーグル'
+      case @hole_par
+      when Regulation::LONG, Regulation::MIDDLE
+        'イーグル'
+      when Regulation::SHORT
+        'ホールインワン'
+      end
     when -1
       'バーディ'
     when 0
       'パー'
+    when 1
+      'ボギー'
     else
-      bogey = @player_score - @hole_par == 1 ? '' : @player_score - @hole_par
-      "#{bogey}ボギー"
-    end
-  end
-
-  # ミドルホールのスコア評価
-  def middle_hole_counter
-    case @player_score - @hole_par
-    when -3
-      'ホールインワン'
-    when -2
-      'イーグル'
-    when -1
-      'バーディ'
-    when 0
-      'パー'
-    else
-      bogey = @player_score - @hole_par == 1 ? '' : @player_score - @hole_par
-      "#{bogey}ボギー"
-    end
-  end
-
-  # ショートホールのスコア評価
-  def short_hole_counter
-    case @player_score - @hole_par
-    when -2
-      'ホールインワン'
-    when -1
-      'バーディ'
-    when 0
-      'パー'
-    else
-      bogey = @player_score - @hole_par == 1 ? '' : @player_score - @hole_par
-      "#{bogey}ボギー"
+      "#{@player_score - @hole_par}ボギー"
     end
   end
 end
@@ -93,7 +60,7 @@ evaluated_one_round_score = []
 # １ホール毎に規定打数に対してのプレイヤーの打数を評価する
 every_one_hole_score.each do |hole_par, player_score|
   golf_score_counter = GolfScoreCounter.new(hole_par, player_score)
-  evaluated_one_round_score << golf_score_counter.judge_hole
+  evaluated_one_round_score << golf_score_counter.judge_score
 end
 
 p evaluated_one_round_score.join(',')
