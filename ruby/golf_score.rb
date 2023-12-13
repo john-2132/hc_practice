@@ -7,6 +7,15 @@ end
 
 # ゴルフスコアの評価を行う
 class GolfScoreCounter
+  SCORE_MAPPING = {
+    -4 => 'コンドル',
+    -3 => 'アルバトロス',
+    -2 => 'イーグル',
+    -1 => 'バーディ',
+     0 => 'パー',
+     1 => 'ボギー'
+  }
+
   def initialize(hole_par, player_score)
     @hole_par = hole_par.to_i
     @player_score = player_score.to_i
@@ -14,34 +23,20 @@ class GolfScoreCounter
 
   def judge_score
     if @hole_par.between?(3, 5) == false || @player_score < 1
-      '不正な入力です。'
+      return '不正な入力です。'
     end
-    case @player_score - @hole_par
-    when -4
-      'コンドル'
-    when -3
-      case @hole_par
-      when Regulation::LONG
-        'アルバトロス'
-      when Regulation::MIDDLE
-        'ホールインワン'
-      end
-    when -2
-      case @hole_par
-      when Regulation::LONG, Regulation::MIDDLE
-        'イーグル'
-      when Regulation::SHORT
-        'ホールインワン'
-      end
-    when -1
-      'バーディ'
-    when 0
-      'パー'
-    when 1
-      'ボギー'
-    else
-      "#{@player_score - @hole_par}ボギー"
+
+    score = @player_score - @hole_par
+    if (@hole_par == Regulation::MIDDLE && score == -3) ||
+      (@hole_par == Regulation::SHORT && score == -2)
+      return 'ホールインワン'
     end
+
+    if score >= 2
+      return "#{score}ボギー"
+    end
+
+    SCORE_MAPPING[score]
   end
 end
 
