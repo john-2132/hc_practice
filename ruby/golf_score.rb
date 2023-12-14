@@ -27,8 +27,8 @@ class GolfScoreCounter
     end
 
     score = @player_score - @hole_par
-    if (@hole_par == Regulation::MIDDLE && score == -3) ||
-      (@hole_par == Regulation::SHORT && score == -2)
+    if (@player_score == 1) &&
+      [Regulation::MIDDLE, Regulation::SHORT].include?(@hole_par)
       return 'ホールインワン'
     end
 
