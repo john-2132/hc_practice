@@ -57,7 +57,7 @@ class VendingMachine
 
   # 購入時のsuica残高が足りているか
   def is_enough_deposit(drink, suica)
-    suica.deposit > @drink_lineup[drink.name][:price]
+    suica.deposit >= @drink_lineup[drink.name][:price]
   end
 
   # 飲み物の在庫を減らす（商品が売れた時）

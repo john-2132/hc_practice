@@ -77,13 +77,16 @@ class VendingMachineTest < Minitest::Test
     suica = Suica.new
     pepsi = Drink.new('pepsi', 150)
     monster = Drink.new('monster', 230)
+    irohas = Drink.new('irohas', 120)
     vending_machine = VendingMachine.new
     vending_machine.add_drink(pepsi, 5)
     vending_machine.add_drink(monster, 5)
+    vending_machine.add_drink(irohas, 5)
     vending_machine.sale_drink(pepsi, suica)
     vending_machine.sale_drink(monster, suica)
-    assert_equal 120, suica.deposit
-    assert_equal 380, vending_machine.get_sales_amount
+    vending_machine.sale_drink(irohas, suica)
+    assert_equal 0, suica.deposit
+    assert_equal 500, vending_machine.get_sales_amount
   end
 
   def test_no_stock_sale_drink
