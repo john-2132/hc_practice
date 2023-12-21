@@ -44,24 +44,21 @@ class VendingMachine
   # 購入時のsuica残高が足りているか
   def is_enough_deposit(drink_name, suica)
     drink = @drink_lineup.find { |drink| drink.name == drink_name }
-    if drink.nil?
-      raise NoStock
+    raise NoStock if drink.nil?
     suica.deposit >= drink.price
   end
 
   # 飲み物の在庫を減らす（商品が売れた時）
   def decrease_stock(drink_name)
     drink_index = @drink_lineup.find_index { |drink| drink.name == drink_name}
-    if drink_index.nil?
-      raise NoStock
+    raise NoStock if drink_index.nil?
     @drink_lineup.delete_at(drink_index)
   end
 
   # suica残高を減らす（商品が売れた時）
   def subtract_suica_deposit(drink_name, suica)
     drink = @drink_lineup.find { |drink| drink.name == drink_name }
-    if drink.nil?
-      raise NoStock
+    raise NoStock if drink.nil?
     suica.pay(drink.price)
   end
 
