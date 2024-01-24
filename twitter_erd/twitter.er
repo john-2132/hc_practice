@@ -1,0 +1,71 @@
+[users]
+  *user_id {label: "bigint, not null"}
+  user_name {label: "varchar, not null, uniq"}
+  e_mail {label: "varchar, not null, uniq"}
+  display_name {label: "varchar"}
+  phone_number {label: "varchar"}
+  self_introduce {label: "varchar, check(length(self_introduce) between 1 and 160)"}
+  url {label: "varchar"}
+  date_of_birth {label: "char(10)"}
+  profile_image {label: "bytea"}
+  avatar_image {label: "bytea"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+[direct_messages] {bgcolor: "#e6e6fa"}
+  *dm_id {label: "bigint, not null"}
+  dm_text {label: "varchar, not null"}
+  send_user_id {label: "bigint, not null, FK(users)"}
+  recieve_user_id {label: "bigint, not null, FK(users)"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+[follows] {bgcolor: "#d0e0d0"}
+  *follow_user_id {label: "bigint, not null, FK(users)"}
+  *follower_user_id {label: "bigint, not null, FK(users)"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+[tweets] {bgcolor: "#b0c4de"}
+  *tweet_id {label: "bigint, not null"}
+  tweet_text {label: "varchar, not null, check(length(tweet_text) between 1 and 140)"}
+  tweet_user_id {label: "bigint, not null, FK(users)"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+[retweets] {bgcolor: "#dda0dd"}
+  *retweet_id {label: "bigint, not null"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  retweet_user_id {label: "bigint, not null, FK(users)"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+[bookmarks] {bgcolor: "#ffe4e1"}
+  *bookmark_id {label: "bigint, not null"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  bookmark_user_id {label: "bigint, not null, FK(users)"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+[favorites] {bgcolor: "#ffefd5"}
+  *favorite_id {label: "bigint, not null"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  favorite_user_id {label: "bigint, not null, FK(users)"}
+  created_at {label: "timestamp, not null"}
+  updated_at {label: "timestamp, not null"}
+
+# Cardinality    Syntax
+# 0 or 1         ?
+# exactly 1      1
+# 0 or more      *
+# 1 or more      +
+
+users 1--* tweets
+users 1--* direct_messages
+users 1--* follows
+users 1--* retweets
+users 1--* favorites
+users 1--* bookmarks
+tweets 1--* retweets
+tweets 1--* bookmarks
+tweets 1--* favorites
