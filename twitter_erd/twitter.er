@@ -1,7 +1,7 @@
 [users]
-  *user_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   user_name {label: "varchar, not null, uniq"}
-  e_mail {label: "varchar, not null, uniq"}
+  email {label: "varchar, not null, uniq"}
   display_name {label: "varchar"}
   phone_number {label: "varchar"}
   self_introduce {label: "varchar, check(length(self_introduce) between 1 and 160)"}
@@ -13,8 +13,8 @@
   updated_at {label: "timestamp, not null"}
 
 [direct_messages] {bgcolor: "#e6e6fa"}
-  *dm_id {label: "bigint, not null"}
-  dm_text {label: "varchar, not null"}
+  *id {label: "bigint, not null"}
+  text {label: "varchar, not null"}
   send_user_id {label: "bigint, not null, FK(users)"}
   recieve_user_id {label: "bigint, not null, FK(users)"}
   created_at {label: "timestamp, not null"}
@@ -27,30 +27,30 @@
   updated_at {label: "timestamp, not null"}
 
 [tweets] {bgcolor: "#b0c4de"}
-  *tweet_id {label: "bigint, not null"}
-  tweet_text {label: "varchar, not null, check(length(tweet_text) between 1 and 140)"}
+  *id {label: "bigint, not null"}
+  text {label: "varchar, not null, check(length(tweet_text) between 1 and 140)"}
   tweet_user_id {label: "bigint, not null, FK(users)"}
   created_at {label: "timestamp, not null"}
   updated_at {label: "timestamp, not null"}
 
 [retweets] {bgcolor: "#dda0dd"}
-  *retweet_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
   retweet_user_id {label: "bigint, not null, FK(users)"}
   created_at {label: "timestamp, not null"}
   updated_at {label: "timestamp, not null"}
 
 [bookmarks] {bgcolor: "#ffe4e1"}
-  *bookmark_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
-  bookmark_user_id {label: "bigint, not null, FK(users)"}
+  user_id {label: "bigint, not null, FK(users)"}
   created_at {label: "timestamp, not null"}
   updated_at {label: "timestamp, not null"}
 
 [favorites] {bgcolor: "#ffefd5"}
-  *favorite_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
-  favorite_user_id {label: "bigint, not null, FK(users)"}
+  user_id {label: "bigint, not null, FK(users)"}
   created_at {label: "timestamp, not null"}
   updated_at {label: "timestamp, not null"}
 
